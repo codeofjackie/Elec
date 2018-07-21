@@ -8,7 +8,7 @@
     <style>
         .output {
             margin: auto;
-            height: 300px;
+            height: 200px;
             overflow-y: scroll;
             word-break: break-all
         }
@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark  bg-primary shadow">
+    <nav class="navbar navbar-expand-md navbar-dark  bg-primary noshadow">
         <a class="navbar-brand" href="#">PSLM：SGX进程安全迁移系统</a>
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -55,58 +55,170 @@
     </nav>
     <br/>
     <div class="container ">
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills shadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-                        aria-selected="true">Store</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-                        aria-selected="false">Transfer</a>
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
-                        aria-selected="false">Restore</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
-                        aria-selected="false">Contact us</a>
-                </div>
-                <br/>
-                <div class="nav flex-column nav-pills shadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="btn btn-primary" style="outline: 0!important;border: 0!important" id="close">退出</button>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="true">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="false">Detail</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <div class="row p-4">
+                    <div class="col-3">
+                        <div class="nav flex-column nav-pills noshadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-monitor-tab" data-toggle="pill" href="#v-pills-monitor" role="tab" aria-controls="v-pills-monitor"
+                                aria-selected="true">Monitor</a>
+                            <a class="nav-link" id="v-pills-store-tab" data-toggle="pill" href="#v-pills-store" role="tab" aria-controls="v-pills-store"
+                                aria-selected="true">Store</a>
+                            <a class="nav-link" id="v-pills-transfer-tab" data-toggle="pill" href="#v-pills-transfer" role="tab" aria-controls="v-pills-transfer"
+                                aria-selected="false">Transfer</a>
+                            <a class="nav-link" id="v-pills-restore-tab" data-toggle="pill" href="#v-pills-restore" role="tab" aria-controls="v-pills-restore"
+                                aria-selected="false">Restore</a>
+                            <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact"
+                                aria-selected="false">Contact us</a>
+                        </div>
+                        <br/>
+                        <div class="nav flex-column nav-pills noshadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="btn btn-primary" style="outline: 0!important;border: 0!important" id="close">退出</button>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="tab-content noshadow p-3" style="border-radius: 5px;background: whitesmoke" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-monitor" role="tabpanel" aria-labelledby="v-pills-monitor-tab">
+                                <div class="row">
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="monitor" id="secure" />安全运行</div>
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="monitor" id="menace" checked>发现威胁</div>
+                                </div>
+                                <br/>
+                                <small>日志</small>
+                                <div id="output" class="output form-control"></div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-store" role="tabpanel" aria-labelledby="v-pills-store-tab">
+                                <div class="row">
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="process" onclick="changeProcess(this)" value="normal" />普通进程</div>
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="process" onclick="changeProcess(this)" value="sgx" checked />SGX进程</div>
+                                </div>
+                                <label for="input1">Please input the command</label>
+                                <input class="form-control" id="input1" type="text" />
+                                <br/>
+                                <small>日志</small>
+                                <div id="output1" class="output form-control"></div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-transfer" role="tabpanel" aria-labelledby="v-pills-transfer-tab">
+                                <ul class="nav nav-pills mb-3" id="pills-tab-transfer" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="pills-send-tab" data-toggle="pill" href="#pills-send" role="tab" aria-controls="pills-send"
+                                            aria-selected="true">send</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-recv-tab" data-toggle="pill" href="#pills-recv" role="tab" aria-controls="pills-recv" aria-selected="false">recv</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-send" role="tabpanel" aria-labelledby="pills-send-tab">
+                                        <div class="row">
+                                            <div class="col-4" style="text-align: center">发送到：</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="host" onclick="changeHost(this)" value="host1" checked/>主机1</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="host" onclick="changeHost(this)" value="host2" />主机2</div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-4" style="text-align: center">是否加密：</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="encrypt" onclick="whetherEncrypt(this)" value="encrypt" onfocus="document.getElementById('password').disabled = false"
+                                                    checked/>是</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="encrypt" onclick="whetherEncrypt(this)" value="noencrypt" onfocus="document.getElementById('password').disabled = true">否</div>
+                                        </div>
+                                        <br>
+                                        <label for="password">Please input the password</label>
+                                        <input class="form-control" id="password" type="text" />
+                                        <label for="input11">Please input the command</label>
+                                        <input class="form-control" id="input11" type="text" />
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-recv" role="tabpanel" aria-labelledby="pills-recv-tab">
+                                        <div class="row">
+                                            <div class="col-4" style="text-align: center">是否解密：</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="d-encrypt" onclick="whetherEncrypt(this)" onfocus="document.getElementById('d-password').disabled = false"
+                                                    checked/>是</div>
+                                            <div class="col-4" style="text-align: center">
+                                                <input type="radio" name="d-encrypt" onclick="whetherEncrypt(this)" onfocus="document.getElementById('d-password').disabled = true">否</div>
+                                        </div>
+                                        <br>
+                                        <label for="d-password">Please input the password</label>
+                                        <input class="form-control" id="d-password" type="text" />
+                                        <label for="input12">Please input the command</label>
+                                        <input class="form-control" id="input12" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-restore" role="tabpanel" aria-labelledby="v-pills-restore-tab">
+                                <div class="row">
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="_process" onclick="changeProcess(this)" value="normal" />普通进程</div>
+                                    <div class="col-6" style="text-align: center">
+                                        <input type="radio" name="_process" onclick="changeProcess(this)" value="sgx" checked />SGX进程</div>
+                                </div>
+                                <label for="input3">Please input the command</label>
+                                <input class="form-control" id="input3" type="text" />
+                                <br/>
+                                <small>日志</small>
+                                <div id="output3" class="output form-control"></div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab">
+                                <h3>成员1</h3>
+                                <small>负责模块</small>
+                                </br>
+                                <small>负责模块</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-9">
-                <div class="tab-content shadow p-3" style="border-radius: 5px;background: whitesmoke" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <label for="input1">Please input the command</label>
-                        <input class="form-control" id="input1" type="text" />
-                        <br/>
-                        <small>日志</small>
-                        <div id="output1" class="output form-control"></div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <label for="input2">Please input the command</label>
-                        <input class="form-control" id="input2" type="text" />
-                        <br/>
-                        <small>日志</small>
-                        <div id="output2" class="output form-control"></div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <label for="input3">Please input the command</label>
-                        <input class="form-control" id="input3" type="text" />
-                        <br/>
-                        <small>日志</small>
-                        <div id="output3" class="output form-control"></div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <h3>成员1</h3>
-                        <small>负责模块</small>
-                        </br>
-                        <small>负责模块</small>
-                    </div>
+            <div class="tab-pane fade" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+                <br>
+                <br>
+                <div class="row rounded mx-3 p-2 shadow-sm" style="background: whitesmoke">
+                    <br>
+                    <br>
+                    <div class="col-4" style="text-align: center">是否开始迁移</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_transfer" checked/>是</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_transfer">否</div>
+                    <br>
+                    <br>
+                    <div class="col-4" style="text-align: center">进程类型</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="__process" onclick="changeProcess(this)" value="normal" />普通进程</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="__process" onclick="changeProcess(this)" value="sgx" checked />SGX进程</div>
+                    <br>
+                    <br>
+                    <div class="col-4" style="text-align: center">选择主机</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_host" onclick="changeHost(this)" value="host1" checked/>主机1</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_host" onclick="changeHost(this)" value="host2" />主机2</div>
+                    <br>
+                    <br>
+                    <div class="col-4" style="text-align: center">是否加密：</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_encrypt" value="encrypt" onclick="whetherEncrypt(this)" checked/>是</div>
+                    <div class="col-4" style="text-align: center">
+                        <input type="radio" name="_encrypt" value="noencrypt" onclick="whetherEncrypt(this)">否</div>
                 </div>
             </div>
         </div>
-        <script>
-
-        </script>
     </div>
     <script src="index.js"></script>
 </body>
