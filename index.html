@@ -12,12 +12,22 @@
             overflow-y: scroll;
             word-break: break-all
         }
+
+        .navbar>a {
+            -webkit-user-select: none;
+            -webkit-app-region: drag;
+        }
+
+        .navbar>button+div{
+            -webkit-user-select:initial;
+            -webkit-app-region: none;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark  bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-md navbar-dark  bg-primary shadow">
+        <a class="navbar-brand" href="#">PSLM：SGX进程安全迁移系统</a>
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,67 +35,71 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
+                    <a class="nav-link" href="#">
+                        <span class="sr-only"></span>
                     </a>
                 </li>
             </ul>
-            <div class="dropdown mr-5">
+            <div class="dropdown" style="margin-right:70px">
                 <button class="btn btn-white dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    User
                 </button>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">Action</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">After divider</a>
+                    <a class="dropdown-item" href="#">After </a>
                 </div>
             </div>
         </div>
     </nav>
     <br/>
-    <div class="container">
+    <div class="container ">
         <div class="row">
             <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <div class="nav flex-column nav-pills shadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-                        aria-selected="true">Home</a>
+                        aria-selected="true">Store</a>
                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-                        aria-selected="false">Profile</a>
+                        aria-selected="false">Transfer</a>
                     <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
-                        aria-selected="false">Messages</a>
+                        aria-selected="false">Restore</a>
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
                         aria-selected="false">Contact us</a>
                 </div>
+                <br/>
+                <div class="nav flex-column nav-pills shadow p-2" style="background: whitesmoke" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="btn btn-primary" style="outline: 0!important;border: 0!important" id="close">退出</button>
+                </div>
             </div>
             <div class="col-9">
-                <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-content shadow p-3" style="border-radius: 5px;background: whitesmoke" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <label for="input1">请输入……</label>
+                        <label for="input1">Please input the command</label>
                         <input class="form-control" id="input1" type="text" />
                         <br/>
                         <small>日志</small>
-                        <div  id="output1" class="output form-control"></div>
+                        <div id="output1" class="output form-control"></div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <label for="input2">请输入……</label>
+                        <label for="input2">Please input the command</label>
                         <input class="form-control" id="input2" type="text" />
                         <br/>
                         <small>日志</small>
-                        <div  id="output2" class="output form-control"></div>
+                        <div id="output2" class="output form-control"></div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <label for="input3">请输入……</label>
+                        <label for="input3">Please input the command</label>
                         <input class="form-control" id="input3" type="text" />
                         <br/>
                         <small>日志</small>
-                        <div  id="output3" class="output form-control"></div>
+                        <div id="output3" class="output form-control"></div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                 </div>
             </div>
         </div>
         <script>
-            
+
         </script>
     </div>
     <script src="index.js"></script>

@@ -1,18 +1,30 @@
-const { app, BrowserWindow } = require("electron");
-
+const { app, BrowserWindow,globalShortcut,Menu,ipcMain } = require("electron");
+const path = require('path')
+const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
 function createWindow() {
   // 创建浏览器窗口。
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({titleBarStyle: 'customButtonsOnHover', width: 770, height: 550,frame: false });
 
   // 然后加载应用的 index.html。
   win.loadFile("index.html");
+  Menu.setApplicationMenu(null);
 
-  // 打开开发者工具
-  // win.webContents.openDevTools();
+  globalShortcut.register('F5', function () {
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, 'index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+  })
+
+  globalShortcut.register('CommandOrControl+Shift+I', function () {
+    // 打开开发者工具
+    win.webContents.openDevTools();  
+  })
 
   // 当 window 被关闭，这个事件会被触发。
   win.on("closed", () => {
@@ -44,6 +56,16 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+// ipcMain.on('min', e=> mainWindow.minimize());
+// ipcMain.on('max', e=> {
+//     if (mainWindow.isMaximized()) {
+//         mainWindow.unmaximize()
+//     } else {
+//         mainWindow.maximize()
+//     }
+// });
+ipcMain.on('close', e=> win.close());
 
 // 在这个文件中，你可以续写应用剩下主进程代码。
 // 也可以拆分成几个文件，然后用 require 导入。
