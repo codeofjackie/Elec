@@ -1,0 +1,1 @@
+electron-packager . demo --linux --out demo --arch=x64 --version 1.0.0 --overwrite

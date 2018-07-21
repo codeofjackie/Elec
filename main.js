@@ -7,7 +7,7 @@ let win;
 
 function createWindow() {
   // 创建浏览器窗口。
-  win = new BrowserWindow({titleBarStyle: 'customButtonsOnHover', width: 770, height: 550,frame: false,resizable:false });
+  win = new BrowserWindow({titleBarStyle: 'customButtonsOnHover', width: 770, height: 550,frame: false });
 
   // 然后加载应用的 index.html。
   win.loadFile("index.html");
